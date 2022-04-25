@@ -7,6 +7,6 @@
 <p>Insira um nome e acesse o bate-papo de maneira simples!
 
 <h2>Instalação:</h2>
-<p>Para começar a usar o Bot, basta baixar e instalar o Node JS (https://nodejs.org/en/), após a instalação abra o seu prompt de comando desejado na pasta do seu Bot e utilize o comando <code>npm install discord.js</code> para instalar a única dependência necessária, após terminar a instalação da dependência utilize o comando <code>node bot.js</code> ou inicie o arquivo <code>start.bat</code> para iniciar o Bot.
+<!--<p>Para começar a usar o Bot, basta baixar e instalar o Node JS (https://nodejs.org/en/), após a instalação abra o seu prompt de comando desejado na pasta do seu Bot e utilize o comando <code>npm install discord.js</code> para instalar a única dependência necessária, após terminar a instalação da dependência utilize o comando <code>node bot.js</code> ou inicie o arquivo <code>start.bat</code> para iniciar o Bot.
   OBS: É necessário configurar o arquivo <code>config.json</code> com o Token da sua aplicação do Discord (https://discord.com/developers/applications).
-</p>
+</p>-->
