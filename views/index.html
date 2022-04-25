@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <title>Simple chat</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="conteudo">
+  <meta cname="keywords" content="palavras,separadas,por,virgula">
+  <meta name="author" content="Levir">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
+  <!-- Tailwind CDN's -->
+  <link rel="stylesheet" href="https://unpkg.com/flowbite@1.4.2/dist/flowbite.min.css" />
+  <script src="https://unpkg.com/flowbite@1.4.2/dist/flowbite.js"></script>
+  <link href="assets/css/tailwind.css" rel="stylesheet" />
+  <link href="assets/css/tailwind.output.css" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<style>
+  .names-limit {
+    overflow: hidden; 
+    max-width: 30ch; 
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a8bbbf;
+}
+</style>
+
+<body class="bg-gray-50 dark:bg-gray-900">
+
+  <section class="grid h-screen justify-center items-center">
+    <div class="chat_user_login">
+      <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Entrar no bate-papo
+      </h5>
+      <form class="login_form">
+        <div class="mb-6">
+          <input maxlength="30" type="text"
+            class="login_name bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            placeholder="Nome de usuário" required>
+        </div>
+        <button type="submit"
+          class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pronto</button>
+      </form>
+    </div>
+
+    <div class="chat_container text-white">
+      <div class="w-full">
+        <div class="flex">
+          <div class="relative w-full p-6 overflow-y-auto h-[40rem] w-[30rem] bg-gray-800 rounded-lg">
+            <h5 class="mb-4 text-center text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Conectado ao Bate-Papo</h5>
+            <ul class="messages space-y-2"></ul>
+          </div>
+
+          <div class="relative ml-4 w-full p-6 overflow-y-auto h-[40rem] w-[15rem] bg-gray-800 rounded-lg">
+            <h1 class="w-full text-center px-4 py-2">Usuários online: <span class="users_count"></span></h1>
+            <ul class="users_list w-48 text-sm text-center font-medium rounded-lg dark:text-white"></ul>
+          </div>
+        </div>
+        <form class="chat flex" autocomplete="off">
+          <div class="relative text-black mt-4 w-[30rem]">
+            <input type="text" class="message-string bg-gray-50 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:placeholder-gray-400 border-0 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Digite sua mensagem...">
+            <div class="absolute top-2 right-2">
+              <button type='submit' class="text-sm h-15 w-20 text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg w-full px-2 py-1 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Enviar</button>
+            </div>
+          </div>
+          <button type="button" class="exit w-[15rem] ml-4 mt-4 font-medium rounded-lg text-sm px-5 py-3 text-center mr-2 mb-2 text-gray-100 bg-gray-700">Sair</button>
+        </form>
+      </div>
+    </div>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript">
+      let socket = io.connect();
+
+      // Disabled chat container on show page
+      $(".chat_container").hide();
+
+      // On message send
+      $(".chat").submit(function (e) {
+        e.preventDefault();
+
+        let mensagem = $(this).find(".message-string").val();
+        socket.emit("send_message", { message: mensagem }, function () {
+          $(".message-string").val("");
+        });
+      });
+
+      socket.on("update_message", function (data) {
+        if (data.message != '') {
+          let message_content = '';
+
+          switch (data.type) {
+            case 'welcome' || 'exit':
+              content = '<li class="justify-end"> <div class="relative overflow-hidden max-w-sm px-4 py-2 text-gray-100 bg-gray-700 rounded shadow"><div class="absolute left-4 inline-block text-xs">Sistema</div><p class="block pt-4 text-base">' + data.message + '</p> <div class="inline-block text-2xs">' + data.date + '</div></div></li>';
+              break;
+            default:
+              content = '<li class="justify-start"> <div class="relative overflow-hidden max-w-sm px-4 py-2 text-gray-100 bg-gray-700 rounded shadow"><div class="absolute left-4 inline-block text-xs names-limit">' + data.sender + '</div><p class="block pt-4 text-base">' + data.message + '</p> <div class="inline-block text-2xs">' + data.date + '</div></div></li>';
+          }
+
+          $(content).hide().appendTo($('.messages')).fadeIn(300).each(function () {
+            let audio = new Audio('https://cdn.discordapp.com/attachments/804022891041521744/967508696479457370/send.mp3');
+            audio.play();
+            console.log('Mensagem enviada com sucesso!!');
+          });
+        } else {
+          $(".message-string").focus();
+          alert('Você precisa digitar uma mensagem para poder enviar!')
+        }
+      });
+
+      $(".login_form").submit(function (event) {
+        event.preventDefault();
+        socket.emit("chat_user_login", $(".login_name").val(), function (callback) {
+          switch (callback) {
+            case 3:
+              $(".chat_user_login").hide();
+              $(".chat_container").fadeIn(500);
+              break;
+            default:
+              $(".chat_user_login").val("");
+              alert("Usuário válido tente novamente!");
+          }
+        });
+      });
+
+      // Update users list
+      socket.on("update_chat_users", function (chat_users) {
+        $(".users_list").empty();
+        $(".users_count").html('<strong>' + chat_users.length + '</strong>');
+        $.each(chat_users, function (indice) {
+          let content = '<li class="names-limit w-full rounded-lg mt-4 p-2 dark:bg-gray-700 ">' + chat_users[indice] + '</li>';
+          $(content).hide().appendTo($('.users_list')).fadeIn(500).each(function () {
+            console.log('Usuários atualizados com sucesso!');
+          });
+        });
+      });
+
+      // Exit button
+      $(".exit").click(function (e) {
+        e.preventDefault();
+        socket.disconnect();
+        window.location.reload(true);
+      });
+    </script>
+  </section>
+
+</body>
+
+</html>
