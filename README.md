@@ -2,12 +2,9 @@
 
 <h2>Sobre:</h2>
 <p>1. Sistema de chat codificado utilizando as bibliotecas: <code>Socket.io</code>, <code>http</code>, <code>fs</code> e <code>express</code>.</p>
-<p>2. Discord Bot para localização e reprodução de filmes.</p>
-<p>3. O prefixo pré-definido no Bot é +.  
-  Exemplos: <code>+ajuda</code></p>
 
 <h2>Utilização:</h2>
-<p>Insira um nome e acesse o bate-papo!
+<p>Insira um nome e acesse o bate-papo de maneira simples!
 
 <h2>Instalação:</h2>
 <p>Para começar a usar o Bot, basta baixar e instalar o Node JS (https://nodejs.org/en/), após a instalação abra o seu prompt de comando desejado na pasta do seu Bot e utilize o comando <code>npm install discord.js</code> para instalar a única dependência necessária, após terminar a instalação da dependência utilize o comando <code>node bot.js</code> ou inicie o arquivo <code>start.bat</code> para iniciar o Bot.
