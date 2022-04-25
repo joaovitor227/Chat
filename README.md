@@ -7,8 +7,7 @@
   Exemplos: <code>+ajuda</code></p>
 
 <h2>Utilização:</h2>
-<p>Comandos disponíveis:
-<code>+ajuda</code> <code>+filme</code> <code>+hello</code>
+<p>Insira um nome e acesse o bate-papo!
 
 <h2>Instalação:</h2>
 <p>Para começar a usar o Bot, basta baixar e instalar o Node JS (https://nodejs.org/en/), após a instalação abra o seu prompt de comando desejado na pasta do seu Bot e utilize o comando <code>npm install discord.js</code> para instalar a única dependência necessária, após terminar a instalação da dependência utilize o comando <code>node bot.js</code> ou inicie o arquivo <code>start.bat</code> para iniciar o Bot.
