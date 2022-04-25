@@ -1,7 +1,7 @@
 <h1>Simple chat system <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" width="70"></img>  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" width="85"></img></h1>
 
 <h2>Sobre:</h2>
-<p>1. Bot desenvolvido com interamente em JavaScript, utilizando a biblioteca Node JS em toda a codificação do mesmo.</p>
+<p>1. Sistema de chat codificado utilizando as bibliotecas: <code>Socket.io</code>, <code>http</code>, <code>fs</code> e <code>express</code>.</p>
 <p>2. Discord Bot para localização e reprodução de filmes.</p>
 <p>3. O prefixo pré-definido no Bot é +.  
   Exemplos: <code>+ajuda</code></p>
